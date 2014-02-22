@@ -1,0 +1,41 @@
+body {
+	font-family:"Georgia", serif;
+	font-size: medium;
+}
+
+.centerdiv {
+	max-width: 1000px;
+	left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+}
+
+.toptext {
+	margin: 30px;
+	padding: 20px;
+  padding-bottom: 40px;
+	max-width: 1000px;
+	border: 1px solid #aaaaaa;
+	background: #eeeeee;
+	font-size: small;
+	line-height: 150%;
+}
+
+.textfield {
+	line-height: 150%;
+	width: 450px;
+	float: left;
+	margin-left: 50px;
+	margin-bottom: 30px;
+}
+
+.bytext {
+	float: right;
+}
+
+.line {
+	color: #000000;
+	cursor: pointer;
+}
