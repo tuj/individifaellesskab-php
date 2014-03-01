@@ -24,7 +24,6 @@ $db = new IIFdb();
         </div>
         <div class="textfield" >
             <?php
-                $db->updateLists();
                 $db->outputWeList();
             ?>
         </div>
