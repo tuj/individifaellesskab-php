@@ -45,7 +45,7 @@ class IIFdb {
     $iItemsDB = $query->fetchAll(PDO::FETCH_ASSOC);
 
     // Get links to feeds.
-    $strFeeds = file_get_contents("feeds.txt", false);
+    $strFeeds = file_get_contents('./feeds.txt', FILE_USE_INCLUDE_PATH);
     $feeds = explode("\r", $strFeeds);
 
     // Added items go into this array
