@@ -13,7 +13,7 @@ class IIFdb {
   }
 
   public function outputWeList() {
-    $statement = 'SELECT * FROM items_we ORDER BY id ASC';
+    $statement = 'SELECT * FROM items_we ORDER BY id DESC';
     $query = $this->connection->execute($statement);
     $weItemsDB = $query->fetchAll(PDO::FETCH_ASSOC);
     foreach ($weItemsDB as $item) {
@@ -22,7 +22,7 @@ class IIFdb {
   }
 
   public function outputIList() {
-    $statement = 'SELECT * FROM items_i ORDER BY id ASC';
+    $statement = 'SELECT * FROM items_i ORDER BY id DESC';
     $query = $this->connection->execute($statement);
     $iItemsDB = $query->fetchAll(PDO::FETCH_ASSOC);
     foreach ($iItemsDB as $item) {
