@@ -35,6 +35,8 @@ class IIFdb {
     $now = time();
     $oneDayAgo = $now - 60 * 60 * 24;
 
+    echo $now . ' - Starting cronjob';
+
     // Get the database content from the last 24 hours.
     $statement = 'SELECT * FROM items_we WHERE datetime > :oneDayAgo';
     $query = $this->connection->execute($statement, array('oneDayAgo' => $oneDayAgo));
@@ -45,7 +47,7 @@ class IIFdb {
     $iItemsDB = $query->fetchAll(PDO::FETCH_ASSOC);
 
     // Get links to feeds.
-    $strFeeds = file_get_contents('./feeds.txt', FILE_USE_INCLUDE_PATH);
+    $strFeeds = file_get_contents('feeds.txt', FILE_USE_INCLUDE_PATH);
     $feeds = explode("\r", $strFeeds);
 
     // Added items go into this array
@@ -126,6 +128,7 @@ class IIFdb {
         }
       }
     }
+    echo "Done!";
   }
 
 }
