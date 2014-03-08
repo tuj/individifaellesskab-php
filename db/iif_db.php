@@ -33,9 +33,10 @@ class IIFdb {
   public function updateLists() {
     // Get timestamp for now and one day ago.
     $now = time();
+	
     $oneDayAgo = $now - 60 * 60 * 24;
 
-    echo $now . ' - Starting cronjob';
+    echo date('Y-m-d H:i:s', $now) . ' - Starting cronjob\n';
 
     // Get the database content from the last 24 hours.
     $statement = 'SELECT * FROM items_we WHERE datetime > :oneDayAgo';
@@ -59,6 +60,7 @@ class IIFdb {
       if (Helpers::startsWith($feed, "http")) {
         $feedContent = file_get_contents($feed);
         if ($xml = simplexml_load_string($feedContent)) {
+          echo 'Processing: ' . $feed . '\n';
           foreach ($xml->xpath("//item") as $item) {
             // Get data for item
             $title = $item->title;
@@ -125,11 +127,11 @@ class IIFdb {
             }
           }
         } else {
-          error_log("warning: " . $feed . " was not fetched correctly.");
+          echo "warning: " . $feed . " was not fetched correctly.\n";
         }
       }
     }
-    echo "Done!";
+    echo date('Y-m-d H:i:s', time()) . "Done!\n";
   }
 
 }
