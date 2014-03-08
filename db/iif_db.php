@@ -58,7 +58,7 @@ class IIFdb {
     // Check for new content in each feed.
     foreach ($feeds as $feed) {
       if (Helpers::startsWith($feed, "http")) {
-        $qMatch = preg_split("/?/", $feed);
+        $qMatch = preg_split("/\?/", $feed);
         if (count($qMatch) > 1)
           $feedContent = file_get_contents($feed . "&randomNumber=" . rand(0,99999999999));
         else
