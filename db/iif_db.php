@@ -58,17 +58,8 @@ class IIFdb {
     // Check for new content in each feed.
     foreach ($feeds as $feed) {
       if (Helpers::startsWith($feed, "http")) {
-        // Get cURL resource
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_RETURNTRANSFER => 1,
-          CURLOPT_URL => $feed
-        ));
-        $feedContent = curl_exec($curl);
-        curl_close($curl);
+        $feedContent = file_get_contents($feed, true);
 
-
-        //$feedContent = file_get_contents($feed);
         if ($xml = simplexml_load_string($feedContent)) {
           echo "Processing: " . $feed . "\n";
           foreach ($xml->xpath("//item") as $item) {
@@ -76,6 +67,8 @@ class IIFdb {
             $title = $item->title;
             $link  = $item->link;
             $time = time();
+
+            echo "      " . $title . " - " . $link . "\n";
 
             // Split title at : if it exists, choose the text on the right of the colon.
             // TODO: add handling of more colons
