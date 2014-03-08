@@ -58,7 +58,11 @@ class IIFdb {
     // Check for new content in each feed.
     foreach ($feeds as $feed) {
       if (Helpers::startsWith($feed, "http")) {
-        $feedContent = file_get_contents($feed . "&" . rand(0,99999999999));
+        $qMatch = preg_split("/?/", $feed);
+        if (count($qMatch) > 1)
+          $feedContent = file_get_contents($feed . "&randomNumber=" . rand(0,99999999999));
+        else
+          $feedContent = file_get_contents($feed . "?randomNumber=" . rand(0,99999999999));
         if ($xml = simplexml_load_string($feedContent)) {
           echo "Processing: " . $feed . "\n";
           foreach ($xml->xpath("//item") as $item) {
