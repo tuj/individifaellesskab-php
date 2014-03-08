@@ -48,8 +48,9 @@ class IIFdb {
 
     // Get links to feeds.
     $strFeeds = file_get_contents('feeds.txt', FILE_USE_INCLUDE_PATH);
-    $feeds = explode("\r", $strFeeds);
-
+    //$feeds = explode("\r", $strFeeds);
+	$feeds = preg_split("/\r\n|\n|\r/", $strFeeds);
+	
     // Added items go into this array
     $addedItems = array();
 
