@@ -36,7 +36,7 @@ class IIFdb {
 	
     $oneDayAgo = $now - 60 * 60 * 24;
 
-    echo date('Y-m-d H:i:s', $now) . ' - Starting cronjob\n';
+    echo date('Y-m-d H:i:s', $now) . " - Starting cronjob\n";
 
     // Get the database content from the last 24 hours.
     $statement = 'SELECT * FROM items_we WHERE datetime > :oneDayAgo';
@@ -50,7 +50,7 @@ class IIFdb {
     // Get links to feeds.
     $strFeeds = file_get_contents('feeds.txt', FILE_USE_INCLUDE_PATH);
     //$feeds = explode("\r", $strFeeds);
-	$feeds = preg_split("/\r\n|\n|\r/", $strFeeds);
+    $feeds = preg_split("/\r\n|\n|\r/", $strFeeds);
 	
     // Added items go into this array
     $addedItems = array();
@@ -60,7 +60,7 @@ class IIFdb {
       if (Helpers::startsWith($feed, "http")) {
         $feedContent = file_get_contents($feed);
         if ($xml = simplexml_load_string($feedContent)) {
-          echo 'Processing: ' . $feed . '\n';
+          echo "Processing: " . $feed . "\n";
           foreach ($xml->xpath("//item") as $item) {
             // Get data for item
             $title = $item->title;
