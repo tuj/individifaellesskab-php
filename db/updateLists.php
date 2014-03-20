@@ -6,4 +6,3 @@ if (php_sapi_name() == 'cli') {
 
     $db->updateLists();
 }
-?>

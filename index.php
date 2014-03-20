@@ -8,6 +8,7 @@ $db = new IIFdb();
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="Type=text/html; charset=utf-8" />
+    <meta http-equiv="refresh" content="300" />
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="index, follow, archive" />
     <meta name="description" content="To digte. Avisernes overskrifter, der starter med 'Jeg' eller 'Vi', bliver samlet til to digte, der bliver længere og længere." />

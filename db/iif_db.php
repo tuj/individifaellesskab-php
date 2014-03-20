@@ -49,7 +49,6 @@ class IIFdb {
 
     // Get links to feeds.
     $strFeeds = file_get_contents('feeds.txt', FILE_USE_INCLUDE_PATH);
-    //$feeds = explode("\r", $strFeeds);
     $feeds = preg_split("/\r\n|\n|\r/", $strFeeds);
 	
     // Added items go into this array
@@ -61,14 +60,11 @@ class IIFdb {
         $feedContent = file_get_contents($feed, true);
 
         if ($xml = simplexml_load_string($feedContent)) {
-          echo "Processing: " . $feed . "\n";
-          foreach ($xml->xpath("//item") as $item) {
+          foreach ($xml->xpath("./channel//item") as $item) {
             // Get data for item
             $title = $item->title;
             $link  = $item->link;
             $time = time();
-
-            echo "      " . $title . " - " . $link . "\n";
 
             // Split title at : if it exists, choose the text on the right of the colon.
             // TODO: add handling of more colons
@@ -101,7 +97,6 @@ class IIFdb {
               continue;
             }
 
-
             // Avoid link and title combination
             $statement = 'SELECT * FROM ' . $dbTable . ' WHERE title = :title AND link = :link';
             $query = $this->connection->execute($statement, array('title' => $title,
@@ -112,7 +107,17 @@ class IIFdb {
               $inDB = false;
               foreach ($dbItems as $dbItem) {
                 // Avoid the same title
-                if (strpos($title, $dbItem['title']) == 0) {
+                if ($title == $dbItem['title']) {
+                  $inDB = true;
+                  break;
+                }
+              }
+
+              if ($inDB) continue;
+
+              // Avoid adding same title in the same run
+              foreach ($addedItems as $addedItem) {
+                if ($title == $addedItem) {
                   $inDB = true;
                   break;
                 }
