@@ -18,11 +18,12 @@ $db = new IIFdb();
 <body>
 <div class="centerdiv">
   <div class="toptext">
-    <div>
-      <div class="bytext fb-follow"
+    <div class="bytext">
+      <div class="fb-follow"
            data-href="https://www.facebook.com/individifaellesskab"
            data-colorscheme="light" data-layout="button"
-           data-show-faces="false"></div>
+           data-show-faces="false">
+      </div>
     </div>
     <br/>
 
