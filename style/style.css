@@ -6,29 +6,35 @@ body {
 .centerdiv {
 	max-width: 1000px;
 	left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    position: absolute;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
 }
 
 .toptext {
 	margin: 30px;
 	padding: 20px;
   padding-bottom: 40px;
-	max-width: 1000px;
 	border: 1px solid #aaaaaa;
 	background: #eeeeee;
 	font-size: small;
 	line-height: 150%;
 }
 
+.textfield-wrapper {
+  margin-left: 40px;
+}
+
 .textfield {
-	line-height: 150%;
-	width: 450px;
-	float: left;
-	margin-left: 50px;
-	margin-bottom: 30px;
+  line-height: 150%;
+  width: 450px;
+  float: left;
+  margin-bottom: 30px;
+}
+
+.textfield-left {
+  margin-right: 20px;
 }
 
 .bytext {
