@@ -15,14 +15,43 @@ $db = new IIFdb();
   <link type="text/css" rel="stylesheet" href="/style/style.css"/>
 </head>
 <body>
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/da_DK/all.js#xfbml=1&appId=215097698699337";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Google analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+  ga('create', 'UA-45836934-2', 'individifaellesskab.dk');
+  ga('send', 'pageview');
+</script>
+
+
 <div class="centerdiv">
   <div class="toptext">
     <div class="bytext">
-      <div class="fb-follow"
+      <div class="fb-like"
            data-href="https://www.facebook.com/individifaellesskab"
-           data-colorscheme="light" data-layout="button"
-           data-show-faces="false">
-      </div>
+           data-layout="button_count" data-action="like" data-show-faces="false"
+           data-share="true"></div>
     </div>
     <br/>
 
@@ -76,36 +105,7 @@ $db = new IIFdb();
       $db->outputIList();
       ?>
     </div>
-
   </div>
 </div>
-
-<!-- Facebook -->
-<div id="fb-root"></div>
-<script>(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/da_DK/all.js#xfbml=1&appId=215097698699337";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
-
-<!-- Google analytics -->
-<script>
-  (function (i, s, o, g, r, a, m) {
-    i['GoogleAnalyticsObject'] = r;
-    i[r] = i[r] || function () {
-      (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date();
-    a = s.createElement(o),
-      m = s.getElementsByTagName(o)[0];
-    a.async = 1;
-    a.src = g;
-    m.parentNode.insertBefore(a, m)
-  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-  ga('create', 'UA-45836934-2', 'individifaellesskab.dk');
-  ga('send', 'pageview');
-</script>
 </body>
 </html>
