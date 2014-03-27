@@ -6,6 +6,7 @@ $db = new IIFdb();
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
+  <meta name="google-site-verification" content="2s9-Et6lS5T4YcL7r8y1qYLZAx_G7EPCqdoLSnW2nBQ" />
   <meta http-equiv="Content-Type" content="Type=text/html; charset=utf-8"/>
   <meta http-equiv="refresh" content="300"/>
   <meta name="robots" content="index, follow, archive"/>
