@@ -6,7 +6,7 @@ class Helpers {
   }
 
   static function blackListedLink($link) {
-    $blackListedLinkWords = array("sport", "fodbold", "golf", "haandbold", "cykling", "boksning", "tennis", "superligaen", "badminton", "ishockey", "formel-1");
+    $blackListedLinkWords = array("sport", "fodbold", "golf", "haandbold", "cykling", "boksning", "tennis", "superligaen", "badminton", "ishockey", "formel-1", "/vm/", "/em/");
 
     foreach ($blackListedLinkWords as $blackListedLinkWord) {
       if (stristr($link,$blackListedLinkWord)) {
