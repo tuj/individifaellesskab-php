@@ -1,7 +1,6 @@
 <?php
 include_once 'conf.php';
 include_once 'pdo_mysql.php';
-include_once 'helpers.php';
 
 class IIFdb {
   // Construct and Destruct
@@ -10,6 +9,21 @@ class IIFdb {
   }
   public function __destruct() {
       $this->connection = null;
+  }
+
+  private function startsWith($haystack, $needle) {
+    return $needle === "" || strpos($haystack, $needle) === 0;
+  }
+
+  private function blackListedLink($link) {
+    $blackListedLinkWords = array("sport", "fodbold", "golf", "haandbold", "cykling", "boksning", "tennis", "superligaen", "badminton", "ishockey", "formel-1", "/vm/", "/em/");
+
+    foreach ($blackListedLinkWords as $blackListedLinkWord) {
+      if (stristr($link,$blackListedLinkWord)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public function outputWeList() {
@@ -56,7 +70,7 @@ class IIFdb {
 
     // Check for new content in each feed.
     foreach ($feeds as $feed) {
-      if (Helpers::startsWith($feed, "http")) {
+      if ($this->startsWith($feed, "http")) {
         $feedContent = file_get_contents($feed, true);
 
         if ($xml = simplexml_load_string($feedContent)) {
@@ -81,11 +95,11 @@ class IIFdb {
             }
 
             // Check if the title starts with "Vi " or "Jeg " and set relevant variables.
-            if (Helpers::startsWith($title, "Vi ")) {
+            if ($this->startsWith($title, "Vi ")) {
               $dbTable = 'items_we';
               $dbItems = $weItemsDB;
             }
-            elseif (Helpers::startsWith($title, "Jeg ")) {
+            elseif ($this->startsWith($title, "Jeg ")) {
               $dbTable = 'items_i';
               $dbItems = $iItemsDB;
             }
@@ -93,7 +107,7 @@ class IIFdb {
               continue;
             }
 
-            if (Helpers::blackListedLink($link)) {
+            if ($this->blackListedLink($link)) {
               continue;
             }
 
