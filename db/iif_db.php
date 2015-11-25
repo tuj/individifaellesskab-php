@@ -44,10 +44,28 @@ class IIFdb {
     }
   }
 
+  public function dbDumpWe() {
+    $statement = 'SELECT * FROM items_we ORDER BY id DESC';
+    $query = $this->connection->execute($statement);
+    $weItemsDB = $query->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($weItemsDB as $item) {
+      echo '<div class="line" title="' . $item['link'] . '">[' . $item[datetime] . "] ". $item['title'] . "(" . $item['link'] .')</div>';
+    }
+  }
+
+  public function dbDumpI() {
+    $statement = 'SELECT * FROM items_i ORDER BY id DESC';
+    $query = $this->connection->execute($statement);
+    $iItemsDB = $query->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($iItemsDB as $item) {
+      echo '<div class="line" title="' . $item['link'] . '">[' . $item[datetime] . "] ". $item['title'] . "(" . $item['link'] .')</div>';
+    }
+  }
+
   public function updateLists() {
     // Get timestamp for now and one day ago.
     $now = time();
-	
+
     $oneDayAgo = $now - 60 * 60 * 24;
 
     echo date('Y-m-d H:i:s', $now) . " - Starting cronjob\n";
@@ -64,7 +82,7 @@ class IIFdb {
     // Get links to feeds.
     $strFeeds = file_get_contents('feeds.txt', FILE_USE_INCLUDE_PATH);
     $feeds = preg_split("/\r\n|\n|\r/", $strFeeds);
-	
+
     // Added items go into this array
     $addedItems = array();
 
@@ -157,4 +175,3 @@ class IIFdb {
   }
 
 }
-
