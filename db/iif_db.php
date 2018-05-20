@@ -12,6 +12,14 @@ class IIFdb {
       $this->connection = null;
   }
 
+  public function getLatest($list, $numberOfItems) {
+      $statement = 'SELECT * FROM ' . $list . ' ORDER BY datetime DESC LIMIT ' . $numberOfItems;
+      $query = $this->connection->execute($statement);
+      $items = $query->fetchAll(PDO::FETCH_ASSOC);
+
+      return $items;
+  }
+
   public function outputWeList() {
     $statement = 'SELECT * FROM items_we ORDER BY datetime DESC';
     $query = $this->connection->execute($statement);

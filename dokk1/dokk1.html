@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>individifaellesskab.dk</title>
+  <script src="axios.min.js"></script>
+  <script src="vue.js"></script>
+
+  <style>
+    @font-face {
+      font-family: robotoRegular;
+      src: url(fonts/Roboto/Roboto-Regular.ttf);
+    }
+
+    @font-face {
+      font-family: robotoBlack;
+      src: url(fonts/Roboto/Roboto-Black.ttf);
+    }
+
+    body {
+      font-family: robotoRegular;
+      font-weight: bolder;
+      font-size: 2em;
+      line-height: 2em;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      font-family: robotoBlack;
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    .app {
+      display: flex;
+      justify-content: center;
+    }
+
+    .list {
+      overflow: hidden;
+      height: 910px;
+      margin: 1em;
+    }
+
+    .list-complete-item {
+      transition: all 1s;
+      margin-left: .75em;
+      margin-right: .75em;
+    }
+
+    .list-complete-enter, .list-complete-leave-to {
+      opacity: 0;
+    }
+
+    .list-complete-leave-active {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+<h1>individifaellesskab.dk</h1>
+
+<div id="app" class="app list">
+  <transition-group name="list-complete" tag="div">
+    <div v-for="item in i" :key="item.id" class="list-complete-item">
+      {{ item.title }}
+    </div>
+  </transition-group>
+  <transition-group name="list-complete" tag="div">
+    <div v-for="item in we" :key="item.id" class="list-complete-item">
+      {{ item.title }}
+    </div>
+  </transition-group>
+</div>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            i: [],
+            we: []
+        }
+    });
+
+    function getData () {
+        axios.get('/latest.php')
+            .then(function (response) {
+                app.i = response.data['i'];
+                app.we = response.data['we'];
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    getData();
+
+    // Update every 30 s.
+    setInterval(getData, 30000);
+</script>
+</body>
+</html>
