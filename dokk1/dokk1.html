@@ -123,8 +123,6 @@
     });
 
     function moveTheSticks (index) {
-        console.log('moveTheSticks', index);
-
         window.scroll(0, index * 64 * 14);
 
         index++;
@@ -149,8 +147,10 @@
 
                 moveTheSticks(0);
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(function () {
+                setTimeout(function () {
+                    getData();
+                }, 5000);
             });
     }
 
