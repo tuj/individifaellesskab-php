@@ -6,6 +6,8 @@
   <script src="axios.min.js"></script>
   <script src="vue.js"></script>
 
+
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <style>
     @font-face {
       font-family: robotoRegular;
@@ -24,6 +26,28 @@
       line-height: 2em;
       margin: 0;
       padding: 0;
+      overflow: hidden;
+    }
+
+    .header {
+      background: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      z-index: 1;
+    }
+
+    .bottom {
+      background: white;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30px;
+      width: 100%;
+      z-index: 1;
     }
 
     h1 {
@@ -33,17 +57,24 @@
     }
 
     .app {
+      z-index: 0;
+      position: absolute;
+      top: 150px;
+      margin-left: 1em;
+      margin-right: 1em;
+    }
+
+    .app-wrapper {
       display: flex;
       justify-content: center;
     }
 
     .list {
       overflow: hidden;
-      height: 910px;
-      margin: 1em;
     }
 
     .list-complete-item {
+      flex: 1;
       transition: all 1s;
       margin-left: .75em;
       margin-right: .75em;
@@ -59,22 +90,35 @@
   </style>
 </head>
 <body>
-<h1>individifaellesskab.dk</h1>
-
-<div id="app" class="app list">
-  <transition-group name="list-complete" tag="div">
-    <div v-for="item in i" :key="item.id" class="list-complete-item">
-      {{ item.title }}
-    </div>
-  </transition-group>
-  <transition-group name="list-complete" tag="div">
-    <div v-for="item in we" :key="item.id" class="list-complete-item">
-      {{ item.title }}
-    </div>
-  </transition-group>
+<div class="header">
+  <h1>fra individifaellesskab.dk</h1>
 </div>
 
+<div id="app" class="app list">
+  <div class="app-wrapper" id="app-content">
+    <transition-group name="list-complete" tag="div">
+      <div v-for="item in we" :key="item.id" class="list-complete-item"
+           v-bind:id="'we-' + item.id">
+        {{ item.title }}
+      </div>
+    </transition-group>
+    <transition-group name="list-complete" tag="div">
+      <div v-for="item in i" :key="item.id" class="list-complete-item"
+           v-bind:id="'i-' + item.id">
+        {{ item.title }}
+      </div>
+    </transition-group>
+  </div>
+</div>
+
+<div class="bottom"></div>
+
 <script type="text/javascript">
+    function countLines (id) {
+        var divHeight = document.getElementById(id).offsetHeight;
+        return divHeight / 64;
+    }
+
     var app = new Vue({
         el: '#app',
         data: {
@@ -83,11 +127,49 @@
         }
     });
 
+    function moveTheSticks (iLines, weLines, index) {
+        console.log('moveTheSticks', iLines, weLines, index);
+
+        window.scroll(0, index * 64 * 14);
+
+        index++;
+
+        setTimeout(function () {
+            if (index >= 14) {
+                getData();
+            }
+            else {
+                moveTheSticks(iLines, weLines, index);
+            }
+        }, 20000);
+    }
+
     function getData () {
+        var iLines;
+        var weLines;
+
         axios.get('/latest.php')
             .then(function (response) {
                 app.i = response.data['i'];
                 app.we = response.data['we'];
+
+                setTimeout(function () {
+                    window.scroll(0, 0);
+
+                    iLines = 0;
+                    for (var i = 0; i < app.i.length; i++) {
+                        var ik = app.i[i];
+                        iLines += countLines('i-' + ik['id']);
+                    }
+
+                    weLines = 0;
+                    for (var we = 0; we < app.we.length; we++) {
+                        var ik = app.we[we];
+                        weLines += countLines('we-' + ik['id']);
+                    }
+
+                    moveTheSticks(iLines, weLines, 0);
+                }, 2000);
             })
             .catch(function (error) {
                 console.log(error);
@@ -95,9 +177,6 @@
     }
 
     getData();
-
-    // Update every 30 s.
-    setInterval(getData, 30000);
 </script>
 </body>
 </html>
